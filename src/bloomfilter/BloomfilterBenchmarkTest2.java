@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Bloom filter benchmark for testing performance in respect to probability p (false positive probability)
+ * @author pawel
+ *
+ */
 public class BloomfilterBenchmarkTest2 {
 
-	// final static int m = 100000;											// number of bits
-	// final static int n = 50000; 											// Number of elements to test
-	// final static int k = 4; 			//(int) ((m / n) * Math.log(2)); 	// number of hash functions
-
 	// set 1 - test affect of number of elements on performance
-	/*	    static Object [] a1 = {0.0005, 10000};
+		static Object [] a1 = {0.0005, 10000};
 	    static Object [] a2 = {0.0005, 20000};
 	    static Object [] a3 = {0.0005, 30000};
 	    static Object [] a4 = {0.0005, 40000};
@@ -20,11 +21,11 @@ public class BloomfilterBenchmarkTest2 {
 	    static Object [] a7 = {0.0005, 70000};
 	    static Object [] a8 = {0.0005, 80000};
 	    static Object [] a9 = {0.0005, 90000};
-	    static Object [] a10 = {0.0005, 100000};*/
+	    static Object [] a10 = {0.0005, 100000};
 
 
 	// set 2 - test affect of probability on performance
-	static Object [] a1 = {0.8, 100000};
+/*	static Object [] a1 = {0.8, 100000};
 	static Object [] a2 = {0.5, 100000};
 	static Object [] a3 = {0.4, 100000};
 	static Object [] a4 = {0.3, 100000};
@@ -33,14 +34,12 @@ public class BloomfilterBenchmarkTest2 {
 	static Object [] a7 = {0.05, 100000};
 	static Object [] a8 = {0.01, 100000};
 	static Object [] a9 = {0.001, 100000};
-	static Object [] a10 = {0.0001, 100000};
-
+	static Object [] a10 = {0.0001, 100000};*/
 
 	// list that will hold array elements
 	static List<Object[]> lista = new ArrayList<Object[]>();
 
 	public static void main(String[] args) {
-
 
 		// set 1 - k varies
 
@@ -55,20 +54,16 @@ public class BloomfilterBenchmarkTest2 {
 		lista.add(a9);
 		lista.add(a10);   
 
-		// iterate over the list of arrays and get each value (m, n, k)
+		// iterate over the list of arrays and get each value (p, n)
 		for (Object[] arrayElement : lista) {
 
-
-
 			Object[] a = arrayElement;
-			Double p = (Double)a[0];
 
-			Integer n = (Integer)a[1];
-
+			Double p = (Double)a[0];			// false positive probability
+			Integer n = (Integer)a[1];			// number of elements
 
 			System.out.println("p: " + p);
 			System.out.println("n: " + n);
-
 
 			final Random r = new Random();
 
@@ -103,25 +98,8 @@ public class BloomfilterBenchmarkTest2 {
 				bf.contains(existingElements.get(i));
 			}
 			long end_contains = System.currentTimeMillis();
-			//printStat(start_contains, end_contains);
-			double diff2 = (end_contains - start_contains) / 1000.0;
-			System.out.println(diff + "s, " + (n / diff2) + " elements/s");
-
-
-			// Check for existing elements with containsAll()
-			System.out.print("containsAll(), existing: ");
-			long start_containsAll = System.currentTimeMillis();
-			for (int i = 0; i < n; i++) {
-				bf.contains(existingElements.get(i));
-			}
-			long end_containsAll = System.currentTimeMillis();
-			//printStat(start_containsAll, end_containsAll);
-			double diff3 = (end_containsAll - start_containsAll) / 1000.0;
-			System.out.println(diff + "s, " + (n / diff3) + " elements/s");
+			diff = (end_contains - start_contains) / 1000.0;
+			System.out.println(diff + "s, " + (n / diff) + " elements/s");
 		}
-
-
 	}
-
-
 }
