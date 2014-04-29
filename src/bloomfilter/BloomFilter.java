@@ -48,13 +48,6 @@ public class BloomFilter<E> implements Serializable {
 	 * @param k is the number of hash functions used.
 	 */
 	public BloomFilter(double c, int n, int k) {
-/*		System.out.println("##### start debugging #####");
-		System.out.println("c: " + c);
-		System.out.println("m = c*n: " + c * n);
-		System.out.println("n: " + n);
-		System.out.println("k: " + k);
-		System.out.println("##### end debugging #####");*/
-		
 		this.expectedNumberOfFilterElements = n;
 		this.k = k;
 		this.bitsPerElement = c;
@@ -70,13 +63,6 @@ public class BloomFilter<E> implements Serializable {
 	 * @param k
 	 */
 	public BloomFilter(int m, int n, int k) {
-		/*System.out.println("\n##### start debugging #####");
-		System.out.println("c = m/n: " + m/n);
-		System.out.println("m = " + m);		// m = c * n
-		System.out.println("n: " + n);
-		System.out.println("k: " + k);
-		System.out.println("##### end debugging #####");*/
-		
 		this.expectedNumberOfFilterElements = n;
 		this.k = k;
 		this.bitsPerElement = m / n;
